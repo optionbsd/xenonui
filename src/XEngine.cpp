@@ -1,18 +1,26 @@
 #include <SDL.h>
 #include <iostream>
+#include <cstdlib>
 
 int main(int argc, char* argv[]){
+    if (argc<3) {
+        std::cerr << "Usage: xui <resolution-width> <resolution-height>" << std::endl;
+        return 1;
+    }
+
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
         std::cerr << "Unable to init SDL" << SDL_GetError() << "\n";
         return 1;
     }
     
+    int width = std::atoi(argv[1]);
+    int height = std::atoi(argv[2]);
     SDL_Window* window = SDL_CreateWindow("XenonUI Application",
-                                          SDL_WINDOWPOS_CENTERED,
-                                          SDL_WINDOWPOS_CENTERED,
-                                          800,
-                                          600,
-                                          SDL_WINDOW_SHOWN);
+                                        SDL_WINDOWPOS_CENTERED,
+                                        SDL_WINDOWPOS_CENTERED,
+                                        width,
+                                        height,
+                                        SDL_WINDOW_SHOWN);
     if(!window){
         std::cerr << "Unable to create window" << SDL_GetError() << "\n";
         SDL_Quit();
